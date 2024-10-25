@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Serveur index{% endblock %}
+
+{% block body %}
+    <h1>Serveur index</h1>
+
+    <!-- Formulaire de recherche -->
+    <form method="GET" action="{{ path('app_serveur_index') }}" class="mb-3">
+        <div class="form-row align-items-end">
+            <div class="col-auto">
+                <label for="dateNaissance">Recherche par Date de Naissance:</label>
+                <input type="date" id="dateNaissance" name="date_naissance" class="form-control" value="{{ app.request.get('date_naissance') }}">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-2">Rechercher</button>
+            </div>
+        </div>
+    </form>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>DateNaissance</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for serveur in serveurs %}
+            <tr>
+                <td>{{ serveur.id }}</td>
+                <td>{{ serveur.nom }}</td>
+                <td>{{ serveur.dateNaissance ? serveur.dateNaissance|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_serveur_show', {'id': serveur.id}) }}">show</a>
+                    <a href="{{ path('app_serveur_edit', {'id': serveur.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_serveur_new') }}">Create new</a>
+{% endblock %}

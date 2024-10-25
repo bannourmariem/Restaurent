@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Serveur{% endblock %}
+
+{% block body %}
+    <h1>Serveur</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ serveur.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ serveur.nom }}</td>
+            </tr>
+            <tr>
+                <th>DateNaissance</th>
+                <td>{{ serveur.DateNaissance ? serveur.DateNaissance|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_serveur_index') }}">back to list</a>
+
+    <a href="{{ path('app_serveur_edit', {'id': serveur.id}) }}">edit</a>
+
+    {{ include('serveur/_delete_form.html.twig') }}
+{% endblock %}
